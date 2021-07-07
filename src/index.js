@@ -28,12 +28,15 @@ function onSearch(event) {
 
 //------------------------------------плавный скролл
 function SmoothScroll() {
-    refs.btnLoading.scrollIntoView({
+    setTimeout(() => {
+        refs.btnLoading.scrollIntoView({
 
-  behavior: 'smooth',
-  block: 'end',
-});
-}
+            behavior: 'smooth',
+            block: 'end',
+        });
+    }, 500);
+};
+
 
 //-----------------------------------кнопка загрузить ещё
  refs.btnLoading.addEventListener('click', onLoadMore);
