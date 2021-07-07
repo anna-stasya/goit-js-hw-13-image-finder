@@ -10,10 +10,11 @@ import getRefs from './js/refs.js';
 //refs
 const refs = getRefs();
 
-    let searchQueryForm = '';
-    let page = 1;
-    const BASE_URL = 'https://pixabay.com/api/';
-    const KEY = '22363451-8577670099bbad87a35d9bf1c';
+let searchQueryForm = '';
+
+let page = 1;
+const BASE_URL = 'https://pixabay.com/api/';
+const KEY = '22363451-8577670099bbad87a35d9bf1c';
 
 //------------------------------------поиск по форме
 refs.searchForm.addEventListener('submit', onSearch);
@@ -22,17 +23,7 @@ function onSearch(event) {
     event.preventDefault(); //что бы не перегружалась страничка при отправке формы
     clearMarkupCard();
     searchQueryForm = event.currentTarget.elements.query.value;
-
-    
-
-    fetch(`${BASE_URL}?image_type=photo&orientation=horizontal&q=${searchQueryForm}&page=${page}&per_page=12&key=${KEY}`)
-        .then(response => response.json())
-        .then(el => {
-            renderMarkupCard(el)
-        })
-        .catch(error => {
-            console.log(error)
-        })  
+    fetchGallery();
 }
 
 //------------------------------------плавный скролл
@@ -50,15 +41,7 @@ function SmoothScroll() {
 function onLoadMore() {
     page += 1;
     SmoothScroll();
-   
-    fetch(`${BASE_URL}?image_type=photo&orientation=horizontal&q=${searchQueryForm}&page=${page}&per_page=12&key=${KEY}`)
-        .then(response => response.json())
-        .then(el => {
-            renderMarkupCard(el)
-        })
-        .catch(error => {
-            console.log(error)
-        })  
+    fetchGallery();
 }
 
 //------------------------------------функция для рендеринга картинок
@@ -68,10 +51,19 @@ function renderMarkupCard(el) {
 
 //------------------------------------очищает при новом запросе
 function clearMarkupCard() {
-    refs.gallery.innerHTML = '';
-    
+    refs.gallery.innerHTML = '';   
 }
 
-
-
-
+//---------------------------------fetch-api
+    
+function fetchGallery() {
+       
+    return fetch(`${BASE_URL}?image_type=photo&orientation=horizontal&q=${searchQueryForm}&page=${page}&per_page=12&key=${KEY}`)
+        .then(response => response.json())
+        .then(el => {
+            renderMarkupCard(el)
+        })
+        .catch(error => {
+            console.log(error)
+        })  
+}
