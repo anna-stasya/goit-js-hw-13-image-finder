@@ -52,15 +52,13 @@ function onSearch(event) {
         refs.gallery.innerHTML = '';
         return;  
     }
-    event.currentTarget.elements.query.value = '';
+    clearText(event);
+   //event.currentTarget.elements.query.value = '';
 }
 
 //----------------------------Очистка текстового поля ввода при нажатии кнопки
 function clearText(event) {
-   // if (searchQueryForm !== '') {
-        event.currentTarget.elements.query.value = '';
-       // return; 
-     
+        event.currentTarget.elements.query.value = '';     
 }
 
 //------------------------------------плавный скролл
