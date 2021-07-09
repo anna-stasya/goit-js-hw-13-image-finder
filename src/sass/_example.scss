@@ -164,5 +164,30 @@ body {
   font-weight: 500;
   user-select: none;
   transition: background-color 250ms var(--timing-function);
-  margin-top: 20px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.btn.is-hidden {
+  display: none;
+}
+//----------плавный скролл------------------
+
+.scroll-button {
+  position: fixed;
+  right: 30px;
+  bottom: 30px;
+
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+
+  border: none;
+  background-color: transparent;
+
+  background-image: url('../images/arrow-scroll.svg');
+  background-size: 30px;
+  background-repeat: no-repeat;
+  background-position: center;
+  transform: rotate(-90deg);
 }

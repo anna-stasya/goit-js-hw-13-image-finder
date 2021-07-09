@@ -1,7 +1,7 @@
 //================================открыть модалку ========================================
 
 const openModalImage = document.querySelector('.js-lightbox');
-const lightboxImage = openModalImage.querySelector('.lightbox__image');
+const lightboxImage = openModalImage.querySelector('.card-image');
 const closeModalImage = document.querySelector('[data-action="close-lightbox"]'); 
 
 

@@ -1,12 +1,9 @@
+<div>
 <h1 class="gallery-title">Gallery</h1>
+<a name="top"></a>
 
 <form class="search-form" id="search-form">
-  <input 
-  class="input"
-  type="text" 
-  name="query" 
-  autocomplete="off" 
-  placeholder="Search images..." />
+  <input class="input" type="text" name="query" autocomplete="off" placeholder="Search images..."  />
 
   <!-- <button type="button" class="gallery-btn-search btn">Search</button> -->
 </form>
@@ -14,10 +11,14 @@
 <ul class="gallery"></ul>
 
 <div class="btn-loading">
-<button type="button" class="gallery-btn-loading btn" data-action="load-more">
-  <span class="label">Load more</span>
-</button>
+  <button type="button" class="gallery-btn-loading btn is-hidden" data-action="load-more">
+    <span class="spiner-border spinner-border-sm spinner" role="status" aria-hidden="true"></span>
+    <span class="label">Load more</span>
+  </button>
 </div>
+<a class="scroll-button" href="#top"></a>
+</div>
+
 
 
 
