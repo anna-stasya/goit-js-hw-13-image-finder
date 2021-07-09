@@ -25,7 +25,6 @@ body {
 
   background-repeat: no-repeat;
   box-sizing: border-box;
-  //background: linear-gradient(to left, #be93c5, #7bc6cc);
   background: linear-gradient(to left, #076585, #fff);
 }
 
@@ -153,7 +152,7 @@ body {
   align-items: center;
   justify-content: center;
   color: #fff;
-  background-color: #be93c5;
+  background-color: #076585;
   border: 0;
   outline: 0;
   padding: 8px 24px;
@@ -163,9 +162,17 @@ body {
   font: inherit;
   font-weight: 500;
   user-select: none;
-  transition: background-color 250ms var(--timing-function);
+  transition: fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  //transition: background-color 250ms;
   margin-top: 40px;
   margin-bottom: 40px;
+
+  &:hover,
+  &:focus {
+    background-color: #be93c5;
+    transition: fill 250ms cubic-bezier(0.4, 0, 0.2, 1),
+      border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
 }
 
 .btn.is-hidden {
