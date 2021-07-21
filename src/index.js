@@ -5,15 +5,10 @@ import galleryCardTmpl from './templates/gallery.hbs';
 
     //js folder
 import getRefs from './js/refs.js';
-import LoadMoreBtn from './js/load-more-btn.js'
-//import getRefs from './js/modal.js';
+import LoadMoreBtn from './js/load-more-btn.js';
 
-    //pnotify
-// import "./styles.css";
-// import { info } from "@pnotify/core";
-// import "@pnotify/core/dist/PNotify.css";
-// import "@pnotify/core/dist/BrightTheme.css";
-// import * as Confirm from "@pnotify/confirm";
+  //basicLightbox
+const basicLightbox = require('basiclightbox');
 
 //refs
 const refs = getRefs();
@@ -30,38 +25,32 @@ const loadMoreBtn = new LoadMoreBtn({
 });
 
 
-//------------------------------------поиск по форме
+//------------------------------------поиск по форме--------------------------------
 refs.searchForm.addEventListener('submit', onSearch);
 
 function onSearch(event) {
     event.preventDefault(); //что бы не перегружалась страничка при отправке формы
     clearMarkupCard();
     
-    
     searchQueryForm = event.currentTarget.elements.query.value;
     if (searchQueryForm === '') {
         loadMoreBtn.hide();
+        refs.gallery.innerHTML = '';
         return ;
     } else {
         fetchArticles();
-     }
-    loadMoreBtn.show();
-    SmoothScroll();
-    
-    if (searchQueryForm === '') {
-        refs.gallery.innerHTML = '';
-        return;  
     }
+    
+    loadMoreBtn.show();
     clearText(event);
-   //event.currentTarget.elements.query.value = '';
 }
 
-//----------------------------Очистка текстового поля ввода при нажатии кнопки
+//----------------------------Очистка текстового поля ввода при нажатии кнопки------------------------
 function clearText(event) {
         event.currentTarget.elements.query.value = '';     
 }
 
-//------------------------------------плавный скролл
+//------------------------------------плавный скролл во время прокрутки картинок----------------------------------
 function SmoothScroll() {
     setTimeout(() => {
         refs.btnLoading.scrollIntoView({
@@ -73,27 +62,26 @@ function SmoothScroll() {
 };
 
 
-//-----------------------------------кнопка загрузить ещё
+//-----------------------------------кнопка загрузить ещё------------------------------------
  loadMoreBtn.refs.button.addEventListener('click', onLoadMore);
 
 function onLoadMore() {
     page += 1;
     SmoothScroll();
-   // fetchGallery();
     fetchArticles();
 }
 
-//------------------------------------функция для рендеринга картинок
+//------------------------------------функция для рендеринга картинок----------------------------
 function renderMarkupCard(el) {
     refs.gallery.insertAdjacentHTML('beforeend', galleryCardTmpl(el.hits));
 }
 
-//------------------------------------очищает при новом запросе
+//------------------------------------очищает при новом запросе----------------------------
 function clearMarkupCard() {
     refs.gallery.innerHTML = '';
 }
 
-//---------------------------------fetch-api
+//---------------------------------fetch-api-------------------------------------
 function fetchGallery() {
        
     return fetch(`${BASE_URL}?image_type=photo&orientation=horizontal&q=${searchQueryForm}&page=${page}&per_page=12&key=${KEY}`)
@@ -106,9 +94,28 @@ function fetchGallery() {
         })  
 }
 
-//---------------------------------fetch-articls работа с кнопкой
+//---------------------------------fetch-articls работа с кнопкой---------------------------------------
 function fetchArticles() {
     loadMoreBtn.disable();
    fetchGallery().then(loadMoreBtn.enable());
   
 }
+
+//---------------------------------бесконечный скролл------------------------------
+
+
+//----------------------------------модалка
+refs.cardImg.addEventListener('click', modalWindow);
+
+function modalWindow (e) {
+    if (e.target.classList.contains('card-image')) {
+    const instance = basicLightbox.create(
+      `<img src=${e.target.getAttribute('data-src')}>`,
+    );
+    instance.show();
+    basicLightbox.visible();
+  }
+}
+
+
+

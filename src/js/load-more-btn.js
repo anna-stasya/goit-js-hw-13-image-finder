@@ -17,14 +17,13 @@ export default class LoadMoreBtn {
         this.refs.button.disabled = false;
         this.refs.label.textContent = 'Show more';
         this.refs.spinner.classList.add('is-hidden');
-        console.log(this.refs.button);
+      //  console.log(this.refs.button);
     }
 
     disable() {
         this.refs.button.disabled = true;
         this.refs.label.textContent = 'Loading ...';
         this.refs.spinner.classList.remove('is-hidden');
-        console.log('disable');
     }
 
     show() {
